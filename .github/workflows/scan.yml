@@ -41,8 +41,7 @@ jobs:
         
       - name: Download and extract artifact
         run: |
-          curl -L -o artifact.zip "${{ steps.get-artifact.outputs.result }}"
-          ls -la
+          curl -L -o artifact.zip -H "Authorization: Bearer ${{ secrets.PERSONAL_PAT }}" "${{ steps.get-artifact.outputs.result }}"
           unzip artifact.zip
           ls -la
 
