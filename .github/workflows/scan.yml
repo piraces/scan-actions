@@ -26,7 +26,6 @@ jobs:
               per_page: 1,
             });
             const latestRun = runs.workflow_runs[0];
-            console.log(latestRun);
             
             // Get the artifact
             const { data: artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
@@ -35,18 +34,15 @@ jobs:
               run_id: latestRun.id,
             });
             const artifact = artifacts.artifacts[0];
-            console.log(artifact);
             
             // Get the download URL and set it as output
             const downloadUrl = artifact.archive_download_url;
             return downloadUrl;
-
-      - name: Get result
-        run: echo "${{steps.get-artifact.outputs.result}}"
         
       - name: Download and extract artifact
         run: |
           curl -L -o artifact.zip "${{ steps.get-artifact.outputs.result }}"
+          ls -la
           unzip artifact.zip
           ls -la
 
