@@ -18,7 +18,7 @@ jobs:
             const workflowId = 'docker-image.yml';
             
             // Get the latest workflow run
-            const { data: runs } = await github.actions.listWorkflowRuns({
+            const { data: runs } = await github.rest.actions.listWorkflowRuns({
               owner: repoOwner,
               repo: repoName,
               workflow_id: workflowId,
@@ -27,7 +27,7 @@ jobs:
             const latestRun = runs.workflow_runs[0];
             
             // Get the artifact
-            const { data: artifacts } = await github.actions.listWorkflowRunArtifacts({
+            const { data: artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
               owner: repoOwner,
               repo: repoName,
               run_id: latestRun.id,
