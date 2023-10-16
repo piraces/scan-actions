@@ -39,7 +39,10 @@ jobs:
             // Get the download URL and set it as output
             const downloadUrl = artifact.archive_download_url;
             return { download_url: downloadUrl };
-      
+
+      - name: Get result
+        run: echo "${{steps.get-artifact.outputs}}"
+        
       - name: Download and extract artifact
         run: |
           curl -L -o artifact.zip "${{ steps.get-artifact.outputs.download_url }}"
